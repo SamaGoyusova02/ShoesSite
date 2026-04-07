@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Shoes Detail</title>
+    <link rel="stylesheet" href="src/output.css">
+</head>
+
+<body class="bg-[#a8c2ed] min-h-screen flex items-center justify-center p-6">
+
+    <main id="detailcontainer"
+        class="relative w-full max-w-5xl bg-white/20 backdrop-blur-lg rounded-[40px] shadow-[0_20px_50px_rgba(0,0,0,0.2)] border border-white/30 overflow-hidden flex flex-col md:flex-row transition-all duration-500 hover:shadow-[0_30px_60px_rgba(0,0,0,0.3)]">
+
+
+
+    </main>
+
+
+    <script>
+        let detailcontainer = document.getElementById('detailcontainer')
+        const showUrl = 'https://69b848ece69653ffe6a43962.mockapi.io/Mehsul/api/Shoes'
+
+        function ShoesDetail() {
+            const urlParams = new URLSearchParams(window.location.search)
+            const itemParam = urlParams.get('item')
+            const id = itemParam.split('-')[0].trim()
+
+            fetch(showUrl)
+                .then(res => res.json())
+                .then(data => {
+                    const z = data.find(item => item.id == id)
+
+
+                    detailcontainer.innerHTML = `
+            
+            <div class="relative w-full md:w-1/2 h-[350px] md:h-auto overflow-hidden group">
+                <img src="${z.image}" 
+                    alt="${z.name}" 
+                    class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110">
+                
+                <div class="absolute top-6 left-6 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-2xl shadow-lg">
+                    <span class="text-[#0d1e4c] font-black text-xl">$${z.price}</span>
+                </div>
+            </div>
+
+            <div class="w-full md:w-1/2 p-8 md:p-14 flex flex-col justify-between bg-gradient-to-br from-white/10 to-transparent">
+                
+                <div>
+                    <h1 class="text-4xl md:text-5xl font-black text-[#0d1e4c] leading-tight mb-4 drop-shadow-sm">
+                        ${z.name}
+                    </h1>
+                    
+                    <p class="text-[#0d1e4c]/80 text-sm md:text-base leading-relaxed font-medium max-w-md">
+                        ${z.description}
+                    </p>
+
+                    <p class="mt-2 text-sm text-gray-600">
+                        Category: ${z.category}
+                    </p>
+                </div>
+
+                <div class="mt-8">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="flex -space-x-2">
+                            <div class="w-8 h-8 rounded-full border-2 border-white bg-red-500 cursor-pointer hover:scale-110 transition"></div>
+                            <div class="w-8 h-8 rounded-full border-2 border-white bg-blue-600 cursor-pointer hover:scale-110 transition"></div>
+                            <div class="w-8 h-8 rounded-full border-2 border-white bg-black cursor-pointer hover:scale-110 transition"></div>
+                        </div>
+                        <span class="text-[12px] font-bold text-[#0d1e4c]/60">Rəng seçimi</span>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="flex-1 bg-[#0d1e4c] text-white font-bold py-4 rounded-2xl hover:bg-[#1a2d5e] transition-all">
+                            İndi Al
+                        </button>
+                        <a href="index.htm" class="flex-1 border-2 border-[#0d1e4c] text-[#0d1e4c] font-bold py-4 rounded-2xl text-center hover:bg-[#0d1e4c] hover:text-white transition-all">
+                            Mağazaya Qayıt
+                        </a>
+                    </div>
+                </div>
+            </div>
+            `
+                })
+        }
+
+        ShoesDetail()
+    </script>
+</body>
+
+</html>
